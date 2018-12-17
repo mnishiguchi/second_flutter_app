@@ -42,9 +42,9 @@ class _HomePageState extends State<HomePage> {
             height: 240.0,
             fit: BoxFit.cover,
           ),
-          _buildTitleSection(),
-          _buildDescriptionSection(),
-          _builtButtonSection(),
+          _TitleSection(counter: _counter),
+          _DescriptionSection(),
+          _ButtonSection(),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -54,8 +54,15 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
 
-  Widget _buildTitleSection() {
+class _TitleSection extends StatelessWidget {
+  const _TitleSection({Key key, this.counter}) : super(key: key);
+
+  final int counter;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(32.0),
       child: Row(children: [
@@ -81,31 +88,50 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        Icon(
-          Icons.star,
-          color: Colors.red[500],
-        ),
-        Text(
-          '$_counter',
-        ),
+        Icon(Icons.star, color: Colors.red[500]),
+        Text('$counter'),
       ]),
     );
   }
+}
 
-  Widget _builtButtonSection() {
+class _DescriptionSection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(32.0),
+      child: Text(
+        'Lake Biwa is a large freshwater lake in Shiga Prefecture, northeast of Kyoto. It’s known for its abundant fish population, migratory water birds and wetland regions. Its shoreline is home to resorts and beaches like Ōmi-Maiko. Around the lake are historic sites including the 17th-century Hikone castle and the 8th-century Buddhist temple complex Enryaku-ji. Lake Biwa Museum has cultural and natural history exhibits.',
+        softWrap: true,
+      ),
+    );
+  }
+}
+
+class _ButtonSection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildButtonColumn(Icons.call, 'Call'),
-          _buildButtonColumn(Icons.near_me, 'Route'),
-          _buildButtonColumn(Icons.share, 'Share'),
+          _IconButton(iconData: Icons.call, label: 'Call'),
+          _IconButton(iconData: Icons.near_me, label: 'Route'),
+          _IconButton(iconData: Icons.share, label: 'Share'),
         ],
       ),
     );
   }
+}
 
-  Widget _buildButtonColumn(IconData iconData, String label) {
+class _IconButton extends StatelessWidget {
+  const _IconButton({Key key, this.iconData, this.label}) : super(key: key);
+
+  final IconData iconData;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
     Color color = Theme.of(context).primaryColor;
 
     return Column(
@@ -125,16 +151,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildDescriptionSection() {
-    return Container(
-      padding: EdgeInsets.all(32.0),
-      child: Text(
-        'Lake Biwa is a large freshwater lake in Shiga Prefecture, northeast of Kyoto. It’s known for its abundant fish population, migratory water birds and wetland regions. Its shoreline is home to resorts and beaches like Ōmi-Maiko. Around the lake are historic sites including the 17th-century Hikone castle and the 8th-century Buddhist temple complex Enryaku-ji. Lake Biwa Museum has cultural and natural history exhibits.',
-        softWrap: true,
-      ),
     );
   }
 }
